@@ -6,3 +6,45 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.menu-row{
+    button{
+        margin-right: 10px;
+    }
+}
+.user-row{
+    margin-top: 10px;
+    ul{
+        list-style: none;
+        padding: 0px;
+    }
+    @media (max-width: 768px) {
+            li:not(:nth-child(1)){
+                margin-top: 7px;
+            }
+    }
+    @media (min-width: 768px) {
+        ul {
+            display: flex;
+
+            li:not(:nth-child(1)){
+                margin-left: 7px;
+            }
+            li{
+                flex: 1;
+            }
+        }
+    }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

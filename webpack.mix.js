@@ -11,8 +11,18 @@ const mix = require("laravel-mix");
  |
  */
 
+mix.sourceMaps();
 mix.disableSuccessNotifications();
 mix.react("resources/js/app.js", "public/js").sass(
     "resources/sass/app.scss",
     "public/css"
 );
+
+mix.webpackConfig({
+    resolve: {
+        extensions: [".js", ".json"],
+        alias: {
+            "@": __dirname + "/resources/js"
+        }
+    }
+});

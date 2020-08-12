@@ -53,19 +53,19 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('username', 'password');
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
+        if (Auth::attempt($credentials,(bool) $request->remember=='on')) {
+            //    Authentication passed...
             return redirect()->intended('home');
         }else{
             $user  = User::where('username',$request->username) -> first();
             if($user ==null)
-            throw ValidationException::withMessages([
-                'username'=> 'Check Username'
-            ]);
+                throw ValidationException::withMessages([
+                    'username'=> 'Check Username'
+                ]);
             else
-            throw ValidationException::withMessages([
-                'password'=> 'Check Password'
-            ]);
+                throw ValidationException::withMessages([
+                    'password'=> 'Check Password'
+                ]);
         }
     }
 }
