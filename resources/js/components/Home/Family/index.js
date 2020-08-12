@@ -15,9 +15,14 @@ const Index = props => {
     };
     const formik = useFormik({
         initialValues: {},
-        onSubmit: async values => {
-            let res = await window.axios.post("/api/family/add", values);
-            console.log(res);
+        onSubmit: async (values, { setErrors }) => {
+            try {
+                let res = await window.axios.post("/api/family/add", values);
+                console.log(res);
+            } catch (e) {
+                if (e?.response?.data?.errors)
+                    setErrors(e?.response?.data?.errors);
+            }
         }
     });
     return (

@@ -10,6 +10,7 @@ const Index = props => {
             initialValues,
             onSubmit,
             values,
+            errors,
             handleChange,
             handleSubmit,
             setFieldValue
@@ -25,7 +26,8 @@ const Index = props => {
                 {() => {
                     Input.defaultProps = {
                         onChange: handleChange,
-                        values
+                        values,
+                        errors
                     };
                     Select.defaultProps = {
                         onChange: handleSelect,
@@ -57,6 +59,9 @@ const Index = props => {
                                 </li>
                                 <li>
                                     <Select
+                                        className={
+                                            errors["relation"] && "error"
+                                        }
                                         style={{ width: "100%" }}
                                         name={"relation"}
                                         placeholder={"Relation"}
@@ -75,6 +80,7 @@ const Index = props => {
                                 </li>
                             </ul>
                             <pre>{JSON.stringify(values, null, 2)}</pre>
+                            <pre>{JSON.stringify(errors, null, 2)}</pre>
                         </Form>
                     );
                 }}

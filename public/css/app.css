@@ -10951,3 +10951,46 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.error {
+  border: solid 1px #ab1010cf !important;
+  color: #ab1010cf !important;
+}
+
+.error::-moz-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #ab1010cf !important;
+  opacity: 1;
+  /* Firefox */
+}
+
+.error:-ms-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #ab1010cf !important;
+  opacity: 1;
+  /* Firefox */
+}
+
+.error::-ms-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #ab1010cf !important;
+  opacity: 1;
+  /* Firefox */
+}
+
+.error::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #ab1010cf !important;
+  opacity: 1;
+  /* Firefox */
+}
+
+.error:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #ab1010cf !important;
+}
+
+.error::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #ab1010cf !important;
+}
+

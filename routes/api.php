@@ -18,5 +18,12 @@ Route::middleware('auth:sanctum','admin')->get('/user', function (Request $reque
     return $request->user();
 });
 Route::middleware('auth:sanctum','admin')->post('/family/add', function (Request $request) {
-    return $request->json()->firstname;
+    $validatedData = $request->validate([
+        'firstname' => 'required|max:255',
+        'lastname' => 'required|max:255',
+        'age' => 'required|integer',
+        'relation' => 'required|max:255',
+        'profession' => 'required|max:255',
+    ]);
+    return "OK";
 });
