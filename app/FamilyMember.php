@@ -14,4 +14,5 @@ class FamilyMember extends Model
     {
         return $this->belongsTo(User::class, 'id', 'last_edited_by');
     }
+    protected $fillable = ['firstname',"lastname","age","relation","profession","user_id","last_edited_at","last_edited_by"];
 }

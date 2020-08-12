@@ -10,7 +10,7 @@ $factory->define(FamilyMember::class, function (Faker $faker) {
         'firstname' => $faker->firstName,
         'lastname' => $faker->lastName,
         'age' => $faker->numberBetween(20, 40),
-        'relation' => $faker->randomElement(['Mom', 'Dad', 'Sister', 'Brother', 'Uncle', 'Aunt']),
+        'relation' => $faker->randomElement(['დედა','მამა','შვილი']),
         'profession' => $faker->randomElement(
             ['Graphic Designer', 'Software Engineer', 'Cook', 'Driver', 'Marketing Director', 'CEO', 'CTO']
         ),

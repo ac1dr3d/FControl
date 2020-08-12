@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Button } from "antd";
 import Family from "./Family";
@@ -9,9 +9,15 @@ const Home = () => {
         let res = await window.axios.get("api/user");
     };
     const [position, setPosition] = useState("family");
+    const [user, setUser] = useState({});
     const handlePosition = pos => {
         if (pos !== position) setPosition(pos);
     };
+    useEffect(() => {
+        axios.get("/api/user").then(res => {
+            if (res?.data) setUser(res?.data);
+        });
+    }, []);
     return (
         <div className="container">
             <div className="row">
@@ -22,13 +28,14 @@ const Home = () => {
                     >
                         Family
                     </Button>
-                    <Button
-                        id="user"
-                        onClick={() => handlePosition("users")}
-                        type={position === "users" && "primary"}
-                    >
-                        Users
-                    </Button>
+                    {user?.is_admin && (
+                        <Button
+                            onClick={() => handlePosition("users")}
+                            type={position === "users" && "primary"}
+                        >
+                            Users
+                        </Button>
+                    )}
                 </div>
             </div>
             <div className="row">{position === "family" && <Family />}</div>

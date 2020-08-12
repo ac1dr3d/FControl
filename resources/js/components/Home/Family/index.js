@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
     CheckOutlined,
     PlusCircleOutlined,
@@ -15,10 +15,13 @@ const Index = props => {
     };
     const formik = useFormik({
         initialValues: {},
-        onSubmit: async (values, { setErrors }) => {
+        onSubmit: async (values, { setErrors, resetForm }) => {
             try {
                 let res = await window.axios.post("/api/family/add", values);
-                console.log(res);
+                if (res?.data === "OK") {
+                    setAddOpen(false);
+                    resetForm();
+                }
             } catch (e) {
                 if (e?.response?.data?.errors)
                     setErrors(e?.response?.data?.errors);
