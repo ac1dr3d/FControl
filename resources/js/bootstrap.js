@@ -1,4 +1,6 @@
-window._ = require('lodash');
+import "antd/dist/antd.css";
+import { message } from "antd";
+window._ = require("lodash");
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -7,10 +9,10 @@ window._ = require('lodash');
  */
 
 try {
-    window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
+    window.Popper = require("popper.js").default;
+    window.$ = window.jQuery = require("jquery");
 
-    require('bootstrap');
+    require("bootstrap");
 } catch (e) {}
 
 /**
@@ -19,9 +21,24 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+window.axios = require("axios");
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+window.axios.defaults.withCredentials = true;
+window.axios.defaults.headers.common["X-CSRF-TOKEN"] = $(
+    'meta[name="csrf-token"]'
+).attr("content");
+window.axios.interceptors.response.use(
+    function(response) {
+        // Do something with response data
+        return response;
+    },
+    function(error) {
+        // Do something with response error
+        message.error(error?.response?.data?.error);
+        return Promise.reject(error);
+    }
+);
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
