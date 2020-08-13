@@ -15,7 +15,16 @@ class SearchController extends Controller
             // თუ admin არ არის, მაშინ წამოიღებს მარტო იმ FamilyMemberებს რომლებიც ამ userს ეკუთვნის
             $query->where('user_id', auth()->user()->id);
         }
-        $query->where($request->get('search_option'), 'like', '%' . $request->get('search_value') . '%');
+        if($request->get('search_option') && $request->get('search_value')){
+            if($request->get('search_option')!=='first_last_name')
+            $query->where($request->get('search_option'), 'like', '%' . $request->get('search_value') . '%');
+            else
+                $query->where('firstname', 'like', '%' . explode(' ', $request->get('search_value'))[0] . '%')->where('lastname', 'like',
+                 '%' . explode(' ', $request->get('search_value'))[0] . '%');
+        }
+        if($request->get('search_relation')){
+            $query->where('relation', 'like', '%' . $request->get('search_relation') . '%');
+        }
         return $query->orderBy('id', 'desc')->get();
     }
 }

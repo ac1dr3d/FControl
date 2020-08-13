@@ -67,6 +67,9 @@ const Index = props => {
     const handleSearchOption = val => {
         searchFormik.setFieldValue("search_option", val);
     };
+    const handleSearchRelation = val => {
+        searchFormik.setFieldValue("search_relation", val);
+    };
     useEffect(() => {
         getList();
     }, []);
@@ -79,9 +82,9 @@ const Index = props => {
     const opts = [
         { value: "firstname", label: "Firstname" },
         { value: "lastname", label: "Lastname" },
-        { value: "first_last_name", label: "Firstname & Lastname" },
-        { value: "relation", label: "Relation" }
+        { value: "first_last_name", label: "Firstname & Lastname" }
     ];
+    const relations = ["დედა", "მამა", "შვილი"];
     const handleSearchReset = () => {
         searchFormik?.resetForm();
         getList();
@@ -90,6 +93,24 @@ const Index = props => {
         <div className="col-md-12 menu-row" style={{ marginTop: 10 }}>
             <MenuBar>
                 <div>
+                    <Select
+                        dropdownMatchSelectWidth={false}
+                        options={relations.map(it => ({
+                            label: it,
+                            value: it
+                        }))}
+                        size={"small"}
+                        style={{ width: 250 }}
+                        name={"search_relation"}
+                        value={
+                            searchFormik?.values?.search_relation ?? undefined
+                        }
+                        placeholder="Search relation"
+                        onChange={handleSearchRelation}
+                        className={
+                            searchFormik.errors["search_relation"] && "error"
+                        }
+                    />
                     <Select
                         dropdownMatchSelectWidth={false}
                         options={opts}
@@ -117,6 +138,7 @@ const Index = props => {
                         onSearch={searchFormik.handleSubmit}
                     />
                     {(searchFormik?.values["search_option"]?.length > 0 ||
+                        searchFormik?.values["search_relation"]?.length > 0 ||
                         searchFormik?.values["search_value"]?.length > 0) && (
                         <CloseOutlined
                             style={{ cursor: "pointer", marginLeft: 10 }}

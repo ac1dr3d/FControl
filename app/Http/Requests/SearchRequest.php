@@ -24,8 +24,8 @@ class SearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'search_option' => 'required|string',
-            'search_value' => 'required|string',
+            'search_option' => 'exclude_if:search_relation,in:დედა,დედა,მამა,შვილი|required|string',
+            'search_value' => 'exclude_if:search_relation,in:დედა,დედა,მამა,შვილი|required|string',
         ];
     }
 }
