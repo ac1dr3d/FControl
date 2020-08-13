@@ -17,6 +17,11 @@
     ul{
         list-style: none;
         padding: 0px;
+        display: flex;
+    background: #f3eee5;
+    padding: 6px 25px;
+    border: 1px solid #b5adad;
+    border-radius: 5px;
     }
     @media (max-width: 768px) {
         li:not(:nth-child(1)){
@@ -35,6 +40,10 @@
             }
         }
     }
+
+.even {
+    background: #eaeaea !important;
+}
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -49,7 +58,7 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 .last-li{
-    flex: 0.3;
+    flex: 0.3 !important;
     span{
         cursor: pointer;
     }

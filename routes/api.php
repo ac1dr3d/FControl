@@ -23,4 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('/users/{user}/familyMembers', 'FamilyController');
 });
+Route::middleware('auth:sanctum', 'admin')->group(function () {
+    Route::resource('/users/members', 'UserController');
+});
 Route::middleware('auth:sanctum')->post('/search','SearchController@search');

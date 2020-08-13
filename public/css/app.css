@@ -10915,6 +10915,11 @@ a.text-dark:focus {
 .user-row ul {
   list-style: none;
   padding: 0px;
+  display: flex;
+  background: #f3eee5;
+  padding: 6px 25px;
+  border: 1px solid #b5adad;
+  border-radius: 5px;
 }
 
 @media (max-width: 768px) {
@@ -10937,6 +10942,10 @@ a.text-dark:focus {
   }
 }
 
+.user-row .even {
+  background: #eaeaea !important;
+}
+
 /* Chrome, Safari, Edge, Opera */
 
 input::-webkit-outer-spin-button,
@@ -10952,7 +10961,7 @@ input[type=number] {
 }
 
 .last-li {
-  flex: 0.3;
+  flex: 0.3 !important;
 }
 
 .last-li span {

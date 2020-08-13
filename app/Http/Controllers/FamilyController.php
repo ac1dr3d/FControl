@@ -18,7 +18,7 @@ class FamilyController extends Controller
     {
         if(auth()->user()->id === $user->id){
             if(auth()->user()->is_admin)
-                return FamilyMember::all();
+                return FamilyMember::orderBy('id','desc')->get();
             else
             return $user->familyMembers()->orderBy('id', 'desc')->get();
         }
@@ -91,7 +91,7 @@ class FamilyController extends Controller
      */
     public function destroy(User $user, FamilyMember $familyMember)
     {
-        if ($user->familyMembers->contains($familyMember)) {
+        if ($user->familyMembers->contains($familyMember) || auth()->user()->is_admin) {
             return $familyMember->delete();
         }
     }

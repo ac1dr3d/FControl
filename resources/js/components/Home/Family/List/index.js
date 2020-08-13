@@ -12,15 +12,16 @@ const Index = props => {
                     <li>Age</li>
                     <li>Relation</li>
                     <li>Profession</li>
-                    <li></li>
+                    <li className="last-li"></li>
                 </ul>
             </div>
             <div className={"user-row"}>
-                {list.map(it => (
+                {list.map((it, idx) => (
                     <ListItem
                         item={it}
                         handleRefresh={handleRefresh}
                         key={it?.id}
+                        index={idx}
                     />
                 ))}
             </div>
