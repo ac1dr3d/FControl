@@ -10922,6 +10922,11 @@ a.text-dark:focus {
   border-radius: 5px;
 }
 
+.user-row ul li .ant-select-selector,
+.user-row ul li input {
+  background: #00000012 !important;
+}
+
 @media (max-width: 768px) {
   .user-row li:not(:nth-child(1)) {
     margin-top: 7px;

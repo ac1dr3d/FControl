@@ -22,6 +22,12 @@
     padding: 6px 25px;
     border: 1px solid #b5adad;
     border-radius: 5px;
+    li{
+        .ant-select-selector,
+        input{
+            background: #00000012 !important;
+        }
+    }
     }
     @media (max-width: 768px) {
         li:not(:nth-child(1)){

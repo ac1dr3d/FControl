@@ -20,67 +20,53 @@ const Index = props => {
     const handleSelect = val => {
         setFieldValue("relation", val);
     };
+    Input.defaultProps = {
+        onChange: handleChange,
+        values,
+        errors
+    };
     return (
         <div className={"user-row"}>
-            <Formik initialValues={initialValues} onSubmit={onSubmit}>
-                {() => {
-                    Input.defaultProps = {
-                        onChange: handleChange,
-                        values,
-                        errors
-                    };
-                    return (
-                        <Form onSubmit={handleSubmit}>
-                            <ul>
-                                <li>
-                                    <Input
-                                        name="firstname"
-                                        type="text"
-                                        placeholder="First Name"
-                                    />
-                                </li>
-                                <li>
-                                    <Input
-                                        name="lastname"
-                                        type="text"
-                                        placeholder="Last Name"
-                                    />
-                                </li>
-                                <li>
-                                    <Input
-                                        name="age"
-                                        type="number"
-                                        placeholder="Age"
-                                    />
-                                </li>
-                                <li>
-                                    <Select
-                                        className={
-                                            errors["relation"] && "error"
-                                        }
-                                        style={{ width: "100%" }}
-                                        name={"relation"}
-                                        placeholder={"Relation"}
-                                        value={values?.relation ?? undefined}
-                                        onChange={handleSelect}
-                                        options={relations.map(it => ({
-                                            label: it,
-                                            value: it
-                                        }))}
-                                    />
-                                </li>
-                                <li>
-                                    <Input
-                                        name="profession"
-                                        type="text"
-                                        placeholder="Profession"
-                                    />
-                                </li>
-                            </ul>
-                        </Form>
-                    );
-                }}
-            </Formik>
+            <ul>
+                <li>
+                    <Input
+                        name="firstname"
+                        type="text"
+                        placeholder="First Name"
+                    />
+                </li>
+                <li>
+                    <Input
+                        name="lastname"
+                        type="text"
+                        placeholder="Last Name"
+                    />
+                </li>
+                <li>
+                    <Input name="age" type="number" placeholder="Age" />
+                </li>
+                <li>
+                    <Select
+                        className={errors["relation"] && "error"}
+                        style={{ width: "100%" }}
+                        name={"relation"}
+                        placeholder={"Relation"}
+                        value={values?.relation ?? undefined}
+                        onChange={handleSelect}
+                        options={relations.map(it => ({
+                            label: it,
+                            value: it
+                        }))}
+                    />
+                </li>
+                <li>
+                    <Input
+                        name="profession"
+                        type="text"
+                        placeholder="Profession"
+                    />
+                </li>
+            </ul>
         </div>
     );
 };

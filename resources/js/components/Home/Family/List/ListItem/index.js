@@ -111,7 +111,7 @@ const Index = props => {
         open: editOpen
     };
     return (
-        <ul key={it?.id} className={props?.index % 2 === 0 && "even"}>
+        <ul key={it?.id} className={props?.index % 2 === 0 ? "even" : ""}>
             <li>
                 <EditInput name={"firstname"} type={"text"} />
             </li>
