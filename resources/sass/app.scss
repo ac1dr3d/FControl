@@ -58,6 +58,11 @@ input[type=number] {
     border: solid 1px #ab1010cf !important;
     color: #ab1010cf !important;
 }
+.srch{
+    button{
+        margin: 0px;
+    }
+}
 .error::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #ab1010cf !important;
     opacity: 1; /* Firefox */

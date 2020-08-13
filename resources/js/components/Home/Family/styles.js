@@ -6,5 +6,6 @@ export const MenuBar = styled.div`
     justify-content: space-between;
     div {
         display: flex;
+        align-items: center;
     }
 `;

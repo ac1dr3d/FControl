@@ -10964,6 +10964,10 @@ input[type=number] {
   color: #ab1010cf !important;
 }
 
+.srch button {
+  margin: 0px;
+}
+
 .error::-moz-placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #ab1010cf !important;

@@ -51,7 +51,13 @@ const Index = props => {
         enableReinitialize: true,
         initialValues: {},
         onSubmit: async (values, { setErrors, resetForm }) => {
-            console.log(values);
+            try {
+                let res = await window.axios.post("/api/search", values);
+                if (res?.data) setList(res?.data);
+            } catch (e) {
+                if (e?.response?.data?.errors)
+                    setErrors(e?.response?.data?.errors);
+            }
         }
     });
     const handleAddOpen = () => {
@@ -64,13 +70,22 @@ const Index = props => {
     useEffect(() => {
         getList();
     }, []);
+    const handleRefresh = () => {
+        return searchFormik?.values["search_option"]?.length > 0 &&
+            searchFormik?.values["search_value"]?.length > 0
+            ? searchFormik?.handleSubmit()
+            : getList();
+    };
     const opts = [
-        { value: "", label: "Anywhere" },
         { value: "firstname", label: "Firstname" },
         { value: "lastname", label: "Lastname" },
         { value: "first_last_name", label: "Firstname & Lastname" },
         { value: "relation", label: "Relation" }
     ];
+    const handleSearchReset = () => {
+        searchFormik?.resetForm();
+        getList();
+    };
     return (
         <div className="col-md-12 menu-row" style={{ marginTop: 10 }}>
             <MenuBar>
@@ -81,17 +96,33 @@ const Index = props => {
                         size={"small"}
                         style={{ width: 250 }}
                         name={"search_option"}
-                        value={searchFormik?.values?.search_option}
+                        value={searchFormik?.values?.search_option ?? undefined}
+                        placeholder="Search term"
                         onChange={handleSearchOption}
+                        className={
+                            searchFormik.errors["search_option"] && "error"
+                        }
                     />
                     <Search
-                        placeholder="input search text"
+                        className={
+                            "srch " +
+                            (searchFormik.errors["search_value"] ? "error" : "")
+                        }
+                        placeholder="Search value"
                         name={"search_value"}
                         enterButton="Search"
+                        value={searchFormik?.values?.search_value ?? undefined}
                         onChange={searchFormik.handleChange}
                         size="small"
                         onSearch={searchFormik.handleSubmit}
                     />
+                    {(searchFormik?.values["search_option"]?.length > 0 ||
+                        searchFormik?.values["search_value"]?.length > 0) && (
+                        <CloseOutlined
+                            style={{ cursor: "pointer", marginLeft: 10 }}
+                            onClick={handleSearchReset}
+                        />
+                    )}
                 </div>
                 <div>
                     <Icon
@@ -111,7 +142,9 @@ const Index = props => {
                 </div>
             </MenuBar>
             {addOpen && <Add fmk={formik} />}
-            {list?.length > 0 && <List list={list} handleRefresh={getList} />}
+            {list?.length > 0 && (
+                <List list={list} handleRefresh={handleRefresh} />
+            )}
         </div>
     );
 };
