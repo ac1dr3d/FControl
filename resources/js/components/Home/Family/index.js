@@ -74,8 +74,9 @@ const Index = props => {
         getList();
     }, []);
     const handleRefresh = () => {
-        return searchFormik?.values["search_option"]?.length > 0 &&
-            searchFormik?.values["search_value"]?.length > 0
+        return (searchFormik?.values["search_option"]?.length > 0 &&
+            searchFormik?.values["search_value"]?.length > 0) ||
+            searchFormik?.values["search_relation"]?.length > 0
             ? searchFormik?.handleSubmit()
             : getList();
     };

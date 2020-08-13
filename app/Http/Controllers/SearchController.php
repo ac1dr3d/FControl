@@ -12,7 +12,6 @@ class SearchController extends Controller
     {
         $query = FamilyMember::query();
         if (!auth()->user()->is_admin) {
-            // თუ admin არ არის, მაშინ წამოიღებს მარტო იმ FamilyMemberებს რომლებიც ამ userს ეკუთვნის
             $query->where('user_id', auth()->user()->id);
         }
         if($request->get('search_option') && $request->get('search_value')){

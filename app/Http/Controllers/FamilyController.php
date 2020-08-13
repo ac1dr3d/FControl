@@ -17,6 +17,9 @@ class FamilyController extends Controller
     public function index(User $user)
     {
         if(auth()->user()->id === $user->id){
+            if(auth()->user()->is_admin)
+                return FamilyMember::all();
+            else
             return $user->familyMembers()->orderBy('id', 'desc')->get();
         }
     }
@@ -66,12 +69,14 @@ class FamilyController extends Controller
     public function update(StoreFamilyMemberRequest $request, User $user, FamilyMember $familyMember)
     {
         if(auth()->user()->id === $user->id){
-            $familyMember->update(
-                $request->validated() + [
-                    'last_edited_at' => now(),
-                    'last_edited_by' => auth()->user()->id,
-                ]
-            );
+            if(auth()->user()->is_admin || $user->familyMembers->contains($familyMember)){
+                $familyMember->update(
+                    $request->validated() + [
+                        'last_edited_at' => now(),
+                        'last_edited_by' => auth()->user()->id,
+                    ]
+                );
+            }
         }
         return $familyMember;
     }
