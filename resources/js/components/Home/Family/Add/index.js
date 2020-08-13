@@ -29,10 +29,6 @@ const Index = props => {
                         values,
                         errors
                     };
-                    Select.defaultProps = {
-                        onChange: handleSelect,
-                        value: values?.relation ?? undefined
-                    };
                     return (
                         <Form onSubmit={handleSubmit}>
                             <ul>
@@ -65,6 +61,8 @@ const Index = props => {
                                         style={{ width: "100%" }}
                                         name={"relation"}
                                         placeholder={"Relation"}
+                                        value={values?.relation ?? undefined}
+                                        onChange={handleSelect}
                                         options={relations.map(it => ({
                                             label: it,
                                             value: it

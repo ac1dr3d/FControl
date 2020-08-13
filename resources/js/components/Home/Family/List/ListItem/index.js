@@ -30,16 +30,14 @@ const SelectInput = props => {
     const handleSelect = val => {
         formik?.setFieldValue("relation", val);
     };
-    Select.defaultProps = {
-        onChange: handleSelect,
-        value: formik?.values?.relation ?? undefined
-    };
     return (
         <>
             {!open && val}
             {open && (
                 <Select
                     className={formik?.errors["relation"] && "error"}
+                    onChange={handleSelect}
+                    value={formik?.values?.relation ?? undefined}
                     style={{ width: "100%" }}
                     name={"relation"}
                     placeholder={"Relation"}
