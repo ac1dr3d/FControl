@@ -17,17 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::middleware('auth:sanctum')->post('/family/add', function (Request $request) {
-    $validatedData = $request->validate([
-        'firstname' => 'required|max:255',
-        'lastname' => 'required|max:255',
-        'age' => 'required|integer',
-        'relation' => 'required|max:255',
-        'profession' => 'required|max:255',
-    ]);
-    $validatedData["user_id"]=$request->user()->id;
-    $validatedData["last_edited_by"]=$request->user()->id;
-    $validatedData["last_edited_at"]=now();
-    App\FamilyMember::create($validatedData);
-    return "OK";
+
+// Route::resource('users', 'UserController')->except(['create', 'edit']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::resource('/users/{user}/family/{member?}', 'FamilyController');
 });

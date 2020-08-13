@@ -48,6 +48,12 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+.last-li{
+    flex: 0.3;
+    span{
+        cursor: pointer;
+    }
+}
 .error{
     border: solid 1px #ab1010cf !important;
     color: #ab1010cf !important;

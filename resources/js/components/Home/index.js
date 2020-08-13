@@ -15,7 +15,10 @@ const Home = () => {
     };
     useEffect(() => {
         axios.get("/api/user").then(res => {
-            if (res?.data) setUser(res?.data);
+            if (res?.data) {
+                setUser(res?.data);
+                sessionStorage.setItem("user", JSON.stringify(res?.data));
+            }
         });
     }, []);
     return (
