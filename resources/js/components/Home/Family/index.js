@@ -20,7 +20,7 @@ const Index = props => {
             .get(
                 "/api/users/" +
                     JSON.parse(sessionStorage.getItem("user"))?.id +
-                    "/family"
+                    "/familyMembers"
             )
             .then(res => {
                 setList(res?.data);
@@ -33,7 +33,7 @@ const Index = props => {
                 let res = await window.axios.post(
                     "/api/users/" +
                         JSON.parse(sessionStorage.getItem("user"))?.id +
-                        "/family",
+                        "/familyMembers",
                     values
                 );
                 setAddOpen(false);

@@ -62,11 +62,22 @@ const Index = props => {
     const handleEdit = () => {
         setEditOpen(true);
     };
-    const handleDelete = () => {};
+    const handleDelete = async () => {
+        try {
+            await axios.delete(
+                "/api/users/" +
+                    JSON.parse(sessionStorage.getItem("user"))?.id +
+                    "/familyMembers/" +
+                    it.id
+            );
+            handleRefresh();
+        } catch (e) {}
+    };
     const handleSubmit = () => {
         setEditOpen(false);
     };
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues: {
             firstname: it?.firstname,
             lastname: it?.lastname,
@@ -79,7 +90,7 @@ const Index = props => {
                 await axios.patch(
                     "/api/users/" +
                         JSON.parse(sessionStorage.getItem("user"))?.id +
-                        "/family/" +
+                        "/familyMembers/" +
                         it.id,
                     values
                 );
@@ -102,52 +113,43 @@ const Index = props => {
         open: editOpen
     };
     return (
-        <Formik
-            initialValues={formik?.initialValues}
-            onSubmit={formik?.onSubmit}
-        >
-            {() => {
-                return (
-                    <ul key={it?.id}>
-                        <li>
-                            <EditInput name={"firstname"} type={"text"} />
-                        </li>
-                        <li>
-                            <EditInput name={"lastname"} type={"text"} />
-                        </li>
-                        <li>
-                            <EditInput name={"age"} type={"number"} />
-                        </li>
-                        <li>
-                            <SelectInput val={it?.relation} />
-                        </li>
-                        <li>
-                            <EditInput name={"profession"} type={"text"} />
-                        </li>
-                        <li className="last-li">
-                            {editOpen && (
-                                <>
-                                    <CheckOutlined
-                                        onClick={formik?.handleSubmit}
-                                        style={{ marginRight: 15 }}
-                                    />
-                                    <MinusOutlined onClick={handleCloseEdit} />
-                                </>
-                            )}
-                            {!editOpen && (
-                                <>
-                                    <EditOutlined
-                                        style={{ marginRight: 15 }}
-                                        onClick={handleEdit}
-                                    />
-                                    <CloseOutlined onClick={handleDelete} />
-                                </>
-                            )}
-                        </li>
-                    </ul>
-                );
-            }}
-        </Formik>
+        <ul key={it?.id}>
+            <li>
+                <EditInput name={"firstname"} type={"text"} />
+            </li>
+            <li>
+                <EditInput name={"lastname"} type={"text"} />
+            </li>
+            <li>
+                <EditInput name={"age"} type={"number"} />
+            </li>
+            <li>
+                <SelectInput val={it?.relation} />
+            </li>
+            <li>
+                <EditInput name={"profession"} type={"text"} />
+            </li>
+            <li className="last-li">
+                {editOpen && (
+                    <>
+                        <CheckOutlined
+                            onClick={formik?.handleSubmit}
+                            style={{ marginRight: 15 }}
+                        />
+                        <MinusOutlined onClick={handleCloseEdit} />
+                    </>
+                )}
+                {!editOpen && (
+                    <>
+                        <EditOutlined
+                            style={{ marginRight: 15 }}
+                            onClick={handleEdit}
+                        />
+                        <CloseOutlined onClick={handleDelete} />
+                    </>
+                )}
+            </li>
+        </ul>
     );
 };
 

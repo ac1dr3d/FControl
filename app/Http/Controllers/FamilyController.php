@@ -31,7 +31,6 @@ class FamilyController extends Controller
     public function store(StoreFamilyMemberRequest $request, User $user)
     {
         if(auth()->user()->id === $user->id){
-
             $member = new FamilyMember(
                 $request->validated() + [
                     'last_edited_at' => now(),
@@ -73,7 +72,6 @@ class FamilyController extends Controller
                     'last_edited_by' => auth()->user()->id,
                 ]
             );
-            dd("hello");
         }
         return $familyMember;
     }

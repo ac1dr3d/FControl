@@ -21,5 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::resource('users', 'UserController')->except(['create', 'edit']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::resource('/users/{user}/family/{member?}', 'FamilyController');
+    Route::resource('/users/{user}/familyMembers', 'FamilyController');
 });
