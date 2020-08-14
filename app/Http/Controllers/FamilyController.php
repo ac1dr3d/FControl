@@ -18,7 +18,7 @@ class FamilyController extends Controller
     {
         if(auth()->user()->id === $user->id){
             if(auth()->user()->is_admin)
-                return FamilyMember::orderBy('id','desc')->get();
+                return FamilyMember::orderBy('id','desc')->with('user','editor')->get();
             else
             return $user->familyMembers()->orderBy('id', 'desc')->get();
         }

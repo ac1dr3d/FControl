@@ -127,6 +127,12 @@ const Index = props => {
             <li>
                 <EditInput name={"profession"} type={"text"} />
             </li>
+            {JSON.parse(sessionStorage.getItem("user"))?.is_admin && (
+                <>
+                    <li>{it?.editor?.username}</li>
+                    <li>{it?.user?.username}</li>
+                </>
+            )}
             <li className="last-li">
                 {editOpen && (
                     <>

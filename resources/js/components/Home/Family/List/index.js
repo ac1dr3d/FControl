@@ -12,6 +12,12 @@ const Index = props => {
                     <li>Age</li>
                     <li>Relation</li>
                     <li>Profession</li>
+                    {JSON.parse(sessionStorage.getItem("user"))?.is_admin && (
+                        <>
+                            <li>Editor</li>
+                            <li>Owner</li>
+                        </>
+                    )}
                     <li className="last-li"></li>
                 </ul>
             </div>

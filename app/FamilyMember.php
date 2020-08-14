@@ -16,11 +16,11 @@ class FamilyMember extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
    
     public function editor()
     {
-        return $this->belongsTo(User::class, 'id', 'last_edited_by');
+        return $this->belongsTo(User::class, 'last_edited_by','id');
     }
 }

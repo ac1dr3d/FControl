@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Switch } from "antd";
+import { useFormik } from "formik";
 import moment from "moment";
 import {
     CheckOutlined,
@@ -7,12 +8,31 @@ import {
     CloseOutlined,
     MinusOutlined
 } from "@ant-design/icons";
+import Input from "@/components/_Common/Input";
 
 const Index = props => {
-    const { it, idx, formik } = props;
+    const { it, idx, handleRefresh } = props;
     const [editOpen, setEditOpen] = useState(false);
+    const formik = useFormik({
+        enableReinitialize: true,
+        initialValues: {
+            username: it?.username,
+            password: it?.password
+        },
+        onSubmit: async (values, { setErrors, resetForm }) => {
+            try {
+                await axios.patch("/api/users/members/" + it?.id, values);
+                handleRefresh();
+                resetForm();
+                setEditOpen(false);
+            } catch (e) {}
+        }
+    });
     const handleToggle = async () => {
-        // const res = await
+        await axios.patch("/api/users/members/" + it?.id, {
+            is_admin: !it.is_admin
+        });
+        handleRefresh();
     };
     const handleEdit = () => {
         setEditOpen(true);
@@ -22,33 +42,58 @@ const Index = props => {
     };
     const handleDelete = async () => {
         try {
-            await axios.delete(
-                "/api/users/members/"
-                // JSON.parse(sessionStorage.getItem("user"))?.id +
-                // "/familyMembers/" +
-                // it.id
-            );
+            await axios.delete("/api/users/members/" + it?.id);
             handleRefresh();
         } catch (e) {}
+    };
+    Input.defaultProps = {
+        onChange: formik?.handleChange,
+        values: formik?.values,
+        errors: formik?.errors
     };
     return (
         <>
             <ul key={it.id} className={idx % 2 === 0 ? "even" : ""}>
-                <li>{it.username}</li>
                 <li>
-                    {moment(new Date(it.created_at)).format(
-                        "YYYY/MM/DD HH:mm:ss"
+                    {!editOpen && it.username}
+                    {editOpen && (
+                        <Input
+                            name="username"
+                            type="text"
+                            placeholder="Username"
+                        />
                     )}
                 </li>
-                <li className={"last-li"}>
-                    <Switch
-                        checked={it.is_admin}
-                        onChange={handleToggle}
-                        size="small"
-                        style={{
-                            margin: "0 10px 0px 0px"
-                        }}
-                    />
+                <li>
+                    {!editOpen &&
+                        moment(new Date(it.created_at)).format(
+                            "YYYY/MM/DD HH:mm:ss"
+                        )}
+                    {editOpen && (
+                        <Input
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                        />
+                    )}
+                </li>
+                <li
+                    className={"last-li"}
+                    style={{
+                        display: "flex",
+                        justifyContent: "flex-end"
+                    }}
+                >
+                    {!editOpen && (
+                        <Switch
+                            checked={it.is_admin}
+                            onChange={handleToggle}
+                            size="small"
+                            style={{
+                                margin: "0 10px 0px 0px"
+                            }}
+                        />
+                    )}
                     {editOpen && (
                         <>
                             <CheckOutlined

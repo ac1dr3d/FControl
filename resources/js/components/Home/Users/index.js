@@ -21,15 +21,17 @@ const Index = props => {
         initialValues: {},
         onSubmit: async (values, { setErrors, resetForm }) => {
             try {
-                setAddOpen(false);
+                await axios.post("/api/users/members", values);
+                handleUsersFetch();
                 resetForm();
-                // getList();
+                setAddOpen(false);
             } catch (e) {
                 if (e?.response?.data?.errors)
                     setErrors(e?.response?.data?.errors);
             }
         }
     });
+
     const handleAddOpen = () => {
         setAddOpen(!addOpen);
         formik?.resetForm();
@@ -48,7 +50,7 @@ const Index = props => {
                     alignItems: "center"
                 }}
             >
-                {addOpen && <Add fmk={formik} />}
+                {addOpen && <Add formik={formik} />}
                 <Icon
                     style={{ cursor: "pointer", fontSize: 22 }}
                     onClick={handleAddOpen}
@@ -65,7 +67,7 @@ const Index = props => {
                 )}
             </div>
             <div className="col-md-8">
-                <List list={list} />
+                <List list={list} handleRefresh={handleUsersFetch} />
             </div>
         </>
     );

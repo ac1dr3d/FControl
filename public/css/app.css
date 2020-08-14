@@ -10920,6 +10920,7 @@ a.text-dark:focus {
   padding: 6px 25px;
   border: 1px solid #b5adad;
   border-radius: 5px;
+  align-items: center;
 }
 
 .user-row ul li .ant-select-selector,
@@ -10966,7 +10967,7 @@ input[type=number] {
 }
 
 .last-li {
-  flex: 0.3 !important;
+  flex: 0.4 !important;
 }
 
 .last-li span {
