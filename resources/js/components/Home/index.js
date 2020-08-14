@@ -8,7 +8,7 @@ const Home = () => {
     const handleGetUser = async () => {
         let res = await window.axios.get("api/user");
     };
-    const [position, setPosition] = useState("users");
+    const [position, setPosition] = useState("family");
     const [user, setUser] = useState({});
     const handlePosition = pos => {
         if (pos !== position) setPosition(pos);
